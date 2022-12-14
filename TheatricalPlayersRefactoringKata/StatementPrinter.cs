@@ -6,19 +6,19 @@ namespace TheatricalPlayersRefactoringKata
 {
     public class StatementPrinter
     {
-        public string Print(Dictionary<string, Play> plays, Invoice invoice)
+        public string Print(Invoice invoice, Dictionary<string, Play> plays)
         {
-            var invoiceTotal = getInvoiceTotal(plays, invoice);
-            var volumeCredits = getVolumeCredits(plays, invoice);
+            var invoiceTotal = getInvoiceTotal(invoice, plays);
+            var volumeCredits = getVolumeCredits(invoice, plays);
             CultureInfo cultureInfo = new CultureInfo("en-US");
             var statement = string.Format("Statement for {0}\n", invoice.Customer);
-            statement += getInvoicePerformances(plays, invoice);
+            statement += getInvoicePerformances(invoice, plays);
             statement += String.Format(cultureInfo, "Amount owed is {0:C}\n", Convert.ToDecimal(invoiceTotal / 100));
             statement += String.Format("You earned {0} credits\n", volumeCredits);
             return statement;
         }
 
-        public int getInvoiceTotal(Dictionary<string, Play> plays, Invoice invoice)
+        public int getInvoiceTotal(Invoice invoice, Dictionary<string, Play> plays)
         {
             int invoiceTotal = 0;
             foreach (var performance in invoice.Performances)
@@ -67,7 +67,7 @@ namespace TheatricalPlayersRefactoringKata
             performanceCost += 300 * audience;
             return performanceCost;
         }
-        public int getVolumeCredits(Dictionary<string, Play> plays, Invoice invoice)
+        public int getVolumeCredits(Invoice invoice, Dictionary<string, Play> plays)
         {
             int volumeCredits = 0;
             foreach (var perf in invoice.Performances)
@@ -82,7 +82,7 @@ namespace TheatricalPlayersRefactoringKata
 
             return volumeCredits;
         }
-        public string getInvoicePerformances(Dictionary<string, Play> plays, Invoice invoice)
+        public string getInvoicePerformances(Invoice invoice, Dictionary<string, Play> plays)
         {
             string performances = "";
             foreach (var perf in invoice.Performances)
