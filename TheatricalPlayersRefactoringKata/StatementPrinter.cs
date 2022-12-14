@@ -6,7 +6,7 @@ namespace TheatricalPlayersRefactoringKata
 {
     public class StatementPrinter
     {
-        public string PrintPlayersStatement(Dictionary<string, Play> plays, Invoice invoice)
+        public string Print(Dictionary<string, Play> plays, Invoice invoice)
         {
             var invoiceTotal = getInvoiceTotal(plays, invoice);
             var volumeCredits = getVolumeCredits(plays, invoice);
